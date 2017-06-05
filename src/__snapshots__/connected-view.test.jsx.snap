@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`actions 1`] = `
+<div>
+  <div>
+    actions: 
+    [
+      "setValue"
+    ]
+  </div>
+  <button
+    onClick={[Function]}
+  >
+    setValue
+  </button>
+  <div>
+    props: 
+    {
+      "label": "a thing"
+    }
+  </div>
+  <div>
+    state: 
+    {
+      "value": "new Promised value for self"
+    }
+  </div>
+</div>
+`;
