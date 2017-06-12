@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 // @TODO: Import a local file that proxies rxjs so we can import a subset of the library.
 import Rx from "rxjs";
+
 export { default as ConnectedParent } from "./connected-parent";
 
 const epicsToUpdaters = (epics, actionsProxy) => {
