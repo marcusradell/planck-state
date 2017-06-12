@@ -26,14 +26,22 @@ const dataToComponent = ({
     key => children[key].stateStream
   );
 
-  const stateStream = Rx.Observable.combineLatest(...stateStreamArray);
+  const stateStreamKeysByIndex = Object.keys(children);
+
+  const stateStream = Rx.Observable.combineLatest(
+    ...stateStreamArray,
+    (...stateArray) =>
+      stateArray.reduce((accumulator, state, index) => {
+        // eslint-disable-next-line no-param-reassign
+        accumulator[stateStreamKeysByIndex[index]] = state;
+        return accumulator;
+      }, {})
+  );
 
   return { children, View, stateStream };
 };
 
-export default ({ provider, propsTree }) => ViewFactory => {
-  const { componentFactoriesByType } = provider;
-
+export default ({ componentFactoriesByType, propsTree }) => ViewFactory => {
   const component = dataToComponent({
     propsTree,
     componentFactoriesByType,

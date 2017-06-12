@@ -1,6 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConnectedParent 1`] = `
+Object {
+  "first": Object {
+    "id": "theFirstId",
+    "value": "testing",
+  },
+  "second": Object {
+    "id": "theSecondId",
+    "value": "initial",
+  },
+}
+`;
+
+exports[`ConnectedParent 2`] = `
 <div>
    
   <div>

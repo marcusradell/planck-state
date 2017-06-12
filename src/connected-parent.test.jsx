@@ -17,6 +17,7 @@ test("ConnectedParent", () => {
     updaters
   });
 
+  // eslint-disable-next-line react/prop-types
   const ViewFactory = ({ actions }) => ({ state }) => (
     <div>
       <input
@@ -50,22 +51,24 @@ test("ConnectedParent", () => {
     textField: TextField
   };
 
-  const provider = {
-    componentFactoriesByType
-  };
-
   const component = ConnectedParent({
-    provider,
+    componentFactoriesByType,
     propsTree
   })(({ childViews: { First, Second } }) => () => (
     <div> <First /> <Second /> </div>
   ));
 
-  const expectedPromise = component.stateStream.skip(1).take(1).forEach(() => {
-    const { View } = component;
-    const tree = renderer.create(<View />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
+  const expectedPromise = component.stateStream
+    .skip(1)
+    .take(1)
+    .forEach(state => {
+      expect(state).toMatchSnapshot();
+
+      const { View } = component;
+
+      const tree = renderer.create(<View />).toJSON();
+      expect(tree).toMatchSnapshot();
+    });
 
   component.children.first.actions.setValue("testing");
 
