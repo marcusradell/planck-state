@@ -34,8 +34,7 @@
     "release": "standard-version",
     "build": "babel src --out-dir build --ignore test.js",
     "prepare": "npm run build",
-    "commit": "git-cz",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "commit": "git-cz"
   },
   "devDependencies": {
     "commitizen": "^2.9.6",
