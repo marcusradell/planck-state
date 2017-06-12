@@ -1,8 +1,29 @@
 {
-  "name": "planck-state",
+  "name": "@linasmatkasse/planck-state",
   "version": "1.1.0",
   "main": "build/index.js",
   "author": "Marcus Nielsen <marcus.nielsen82@gmail.com>",
+  "description": "reactive state-management for composable state",
+  "keywords": [
+    "reactjs",
+    "rxjs",
+    "state-management"
+  ],
+  "bugs": {
+    "url": "https://github.com/LinasMatkasse/planck-state/issues",
+    "email": "marcus.nielsen@linasmatkasse.se"
+  },
+  "contributors": [
+    {
+      "name": "Marcus Nielsen",
+      "email": "marcus.nielsen82@gmail.com",
+      "url": "http://marcusnielsen.org"
+    }
+  ],
+  "homepage": "https://github.com/LinasMatkasse/planck-state",
+  "engines": {
+    "node": ">=6 <=8"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/LinasMatkasse/planck-state.git"
@@ -12,7 +33,7 @@
     "test": "jest",
     "release": "standard-version",
     "build": "babel src --out-dir build --ignore test.js",
-    "prepublish": "npm run build",
+    "prepare": "npm run build",
     "commit": "git-cz",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
@@ -26,19 +47,19 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
     "prettier": "^1.3.1",
-    "semantic-release": "^6.3.6"
+    "standard-version": "^4.0.0"
   },
   "dependencies": {
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-runtime": "^6.23.0",
     "babel-cli": "^6.24.1",
-    "jest": "^20.0.4",
     "babel-jest": "^20.0.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
-    "react-test-renderer": "^15.5.4",
+    "babel-runtime": "^6.23.0",
+    "jest": "^20.0.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
+    "react-test-renderer": "^15.5.4",
     "rxjs": "^5.4.0"
   },
   "config": {
