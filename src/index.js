@@ -15,7 +15,7 @@ const epicsToUpdaters = (epics, actionsProxy) => {
     // eslint-disable-next-line no-param-reassign
     accumulator[key] = eventData => state => {
       epics[key]
-        .service()
+        .service(eventData)
         .then(
           result =>
             result.errors

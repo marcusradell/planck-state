@@ -51,14 +51,15 @@ test("epics", () => {
 
   const epics = {
     loadValue: {
-      actionUpdater: () => state => {
+      actionUpdater: eventData => state => {
         actionCallCount += 1;
-        return Object.assign({}, state, { loading: true });
+        return Object.assign({}, state, { loading: true, eventData });
       },
       successUpdater: value => state =>
         Object.assign({}, state, { loading: false, value }),
       errorUpdater: () => state => state,
-      service: () => Promise.resolve({ data: "new promised value" })
+      service: eventData =>
+        Promise.resolve({ data: `new promised value ${eventData.stuff}` })
     }
   };
 
@@ -70,7 +71,8 @@ test("epics", () => {
     .forEach(loadingState => {
       expect(loadingState).toEqual({
         value: "initial",
-        loading: true
+        loading: true,
+        eventData: { stuff: "foo" }
       });
     });
   const expectationPromise2 = connectedModel.stateStream
@@ -78,10 +80,16 @@ test("epics", () => {
     .take(1)
     .forEach(state => {
       expect(actionCallCount).toBe(1);
-      expect(state).toEqual({ value: "new promised value", loading: false });
+      expect(state).toEqual({
+        value: "new promised value foo",
+        loading: false,
+        eventData: { stuff: "foo" }
+      });
     });
 
-  connectedModel.actions.loadValue();
+  const eventData = { stuff: "foo" };
+
+  connectedModel.actions.loadValue(eventData);
 
   return Promise.all([expectationPromise1, expectationPromise2]);
 });
