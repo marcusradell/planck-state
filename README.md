@@ -55,3 +55,5 @@ const ComponentView = component.view
 
 ReactDOM.render(<ComponentView />, document.querySelector('[data-app]'))
 ```
+
+(Fast comment to fix bad version. Don't use v2.1.)
