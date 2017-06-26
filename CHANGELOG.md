@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/LinasMatkasse/planck-state/compare/v2.0.0...v2.2.0) (2017-06-26)
+
+
+### Features
+
+* **epics:** allow epic actionUpdaters to pass eventData to epic services ([3b15419](https://github.com/LinasMatkasse/planck-state/commit/3b15419))
+* **epics:** fix npm build to have the correct code ([6f9e2fe](https://github.com/LinasMatkasse/planck-state/commit/6f9e2fe))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/LinasMatkasse/planck-state/compare/v2.0.0...v2.1.0) (2017-06-26)
 
