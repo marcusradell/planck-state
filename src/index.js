@@ -22,6 +22,8 @@ const epicsToUpdaters = (epics, actionsProxy) => {
               ? actionsProxy.actions[errorKey](result.errors)
               : actionsProxy.actions[successKey](result.data)
         );
+      // @TODO: Could this happen after the Promise resolves?
+      // Guarantee that the actionUpdater always happens first!
       return epics[key].actionUpdater(eventData)(state);
     };
     return accumulator;
