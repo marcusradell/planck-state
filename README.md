@@ -74,20 +74,20 @@ ReactDOM.render(<component.View />, document.querySelector("[data-app]"));
 
 * `updaters`: Syncronous updater/reducer functions. These change the state of the component. `planck-state` converts these updaters to action triggering functions (action creators) found via `planckStateComponent.actions[updaterName]`. You can also subscribe to an action stream via `planckStateComponent.actionStreams[updaterName]` for debugging purposes or combining some event with some state, like on form submits.
 
-* `epics`: an object/record where each key will be the epic name, and the value will be another object with four keys: `service`, `updater`, `success`, and `error`. Example:
+* `epics`: an object/record where each key will be the epic name, and the value will be another object with four keys: `service`, `actionUpdater`, `successUpdater`, and `errorUpdater`. Example:
 
 ```
 const epics = {
   createTodo: {
     service,
-    updater,
-    success,
-    error
+    actionUpdater,
+    successUpdater,
+    errorUpdater
   }
 }
 ```
 
-`service` should return a promise. `updater` will trigger the `service`, and then change the state. if the `service`'s resolved result contains a truthy `errors` key, the `errors` function is called. Otherwise `success` is called.
+`service` should return a promise. `actionUpdater` will trigger the `service`, and then change the state. if the `service`'s resolved result contains a truthy `errors` key, the `errorUpdater` function is called. Otherwise `successUpdater` is called.
 
 The above would create `actions` and``actionStreams` named `createTodo`, `createTodoSuccess`, and `createTodoError`. Any single argument given to the `epics` `updater` function will be passed along to the services call.
 
