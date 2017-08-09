@@ -1,17 +1,18 @@
 import React from "react";
 
 export default ({ props, actions }) => {
+  const { id, label } = props;
   const onChange = domEvent => {
     actions.setValue(domEvent.target.value);
   };
 
   return ({ state }) => (
-    <div style={{ margin: "30px" }}>
-      <div style={{ margin: "15px" }}>
-        <label htmlFor={props.id}>{props.label}</label>
+    <div style={{ margin: "15px 0" }}>
+      <div style={{ margin: "15px 0" }}>
+        <label htmlFor={id}>{label}</label>
         <input
           style={{ marginLeft: "5px" }}
-          id={props.id}
+          id={id}
           type="text"
           onChange={onChange}
           value={state.value}

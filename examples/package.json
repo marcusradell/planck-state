@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@linasmatkasse/planck-state": "^2.0.0",
+    "casual-browserify": "^1.5.12",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
