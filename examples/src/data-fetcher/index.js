@@ -1,4 +1,4 @@
-import Connected from "@linasmatkasse/planck-state";
+import Connected from "planck-state";
 import Model from "./model";
 import makeViewBasic from "./views/basic";
 import makeViewDebug from "./views/debug";

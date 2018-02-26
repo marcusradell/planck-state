@@ -1,4 +1,4 @@
-import ConnectedComponent from "@linasmatkasse/planck-state";
+import ConnectedComponent from "planck-state";
 import Model from "./model";
 import View from "./view";
 

@@ -5,8 +5,8 @@ exports[`actions 1`] = `
   <div>
     actions: 
     [
-      "setValue"
-    ]
+  "setValue"
+]
   </div>
   <button
     onClick={[Function]}
@@ -16,14 +16,14 @@ exports[`actions 1`] = `
   <div>
     props: 
     {
-      "label": "a thing"
-    }
+  "label": "a thing"
+}
   </div>
   <div>
     state: 
     {
-      "value": "new Promised value for self"
-    }
+  "value": "new Promised value for self"
+}
   </div>
 </div>
 `;

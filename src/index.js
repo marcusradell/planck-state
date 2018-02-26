@@ -2,8 +2,6 @@ import React, { Component } from "react";
 // @TODO: Import a local file that proxies rxjs so we can import a subset of the library.
 import Rx from "rxjs";
 
-export { default as ConnectedParent } from "./connected-parent";
-
 /**
  *
  * @param {Object} epics a record of epics where each epic is a record with
@@ -107,11 +105,11 @@ export const ConnectedView = ({
   const PureView = PureViewFactory({ props, actions });
   const viewStateStream = viewDataStream
     ? modelStateStream.combineLatest(viewDataStream, (self, viewState) => {
-        return {
-          self,
-          viewState
-        };
-      })
+      return {
+        self,
+        viewState
+      };
+    })
     : modelStateStream;
 
   class View extends Component {
