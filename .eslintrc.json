@@ -1,9 +1,12 @@
 {
-    "extends": "airbnb",
-    "env": {
-        "jest": true
-    },
-    "rules": {
-        "linebreak-style": 0
-    }
+  "extends": ["airbnb", "prettier"],
+  "env": {
+    "jest": true
+  },
+  "rules": {
+    "arrow-parens": "off",
+    "linebreak-style": "off",
+    "no-confusing-arrow": "off",
+    "react/prop-types": "off"
+  }
 }

@@ -1,14 +1,10 @@
 {
   "name": "planck-state",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "main": "lib/index.js",
   "author": "Marcus Nielsen <marcus.nielsen82@gmail.com>",
   "description": "reactive state-management for composable state",
-  "keywords": [
-    "reactjs",
-    "rxjs",
-    "state-management"
-  ],
+  "keywords": ["reactjs", "rxjs", "state-management"],
   "bugs": {
     "url": "https://github.com/marcusnielsen/planck-state/issues",
     "email": "marcus.nielsen@linasmatkasse.se"
@@ -40,6 +36,7 @@
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.18.1",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
