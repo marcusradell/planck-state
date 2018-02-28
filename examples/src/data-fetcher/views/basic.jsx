@@ -1,35 +1,40 @@
 import React from 'react'
 
-/* eslint-disable react/prop-types */
 const SuccessState = ({ state }) => (
   <div>
     <h4>Success!</h4>
-    {state.items.map((item, key) => <div key={key}>{item.companyName}</div>)}
+    {state.service.items.map(item => (
+      <div key={item.companyName}>{item.companyName}</div>
+    ))}
   </div>
 )
 const ErrorState = ({ state }) => (
   <div>
-    <h4>Errors</h4>
-    {state.errors.map((item, key) => <div key={key}>{item.title}</div>)}
+    <h4>{state.error.title}</h4>
+    <div>{state.error.description}</div>
   </div>
 )
+
+const ValidState = ({ state }) =>
+  state.loading ? (
+    <LoadingState state={state} />
+  ) : (
+    <SuccessState state={state} />
+  )
+
 const LoadingState = ({ state }) => (
   <div>
     <h4>Loading</h4>
-    {state.items.map((item, key) => <div key={key}>{item.title}</div>)}
+    {state.service &&
+      state.service.items.map(item => <div key={item.title}>{item.title}</div>)}
   </div>
 )
-const NonInitialState = ({ state }) => (
+const HydratedState = ({ state }) => (
   <div>
-    {state.errors ? (
-      <ErrorState state={state} />
-    ) : state.loading ? (
-      <LoadingState state={state} />
-    ) : (
-      <SuccessState state={state} />
-    )}
+    {state.error ? <ErrorState state={state} /> : <ValidState state={state} />}
   </div>
 )
+
 const InitialState = () => <h4>Nothing loaded yet</h4>
 
 export default ({ actions }) => {
@@ -52,7 +57,11 @@ export default ({ actions }) => {
         </button>
       </div>
       <div>
-        {state.isInitial ? <InitialState /> : <NonInitialState state={state} />}
+        {state.loading === null ? (
+          <InitialState state={state} />
+        ) : (
+          <HydratedState state={state} />
+        )}
       </div>
     </div>
   )

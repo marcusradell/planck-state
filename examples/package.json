@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "planck-state": "^4.0.1",
     "casual-browserify": "^1.5.12",
+    "planck-state": "file:..",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },

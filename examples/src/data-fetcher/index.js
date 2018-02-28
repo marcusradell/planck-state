@@ -6,7 +6,6 @@ import makeViewDebug from './views/debug'
 const makeModel = context => {
   const { services } = context
   const model = {
-    initialState: { items: [] },
     services,
   }
   return makeComponent()(model)

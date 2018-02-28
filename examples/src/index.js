@@ -2,7 +2,7 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Data, Errors } from './data'
+import { makeData, makeError } from './data'
 import ApplicationView from './App'
 import registerServiceWorker from './registerServiceWorker'
 import './index.css'
@@ -12,8 +12,8 @@ const fetch = () =>
     setTimeout(() => {
       // eslint-disable-next-line no-unused-expressions
       Math.random() > 0.5
-        ? resolve({ data: { items: Data(10) } })
-        : resolve({ errors: Errors(5) })
+        ? resolve({ success: true, body: { items: makeData(10) } })
+        : resolve({ success: false, body: makeError() })
     }, 1000)
   })
 

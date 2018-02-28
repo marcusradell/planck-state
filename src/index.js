@@ -13,41 +13,33 @@ export const servicesToUpdaters = (services, actionsProxy) =>
   Object.keys(services).reduce((acc, key) => {
     const successKey = `${key}Success`
     const errorKey = `${key}Error`
-    // eslint-disable-next-line no-param-reassign
-    acc[successKey] = success => state => ({
+
+    acc[successKey] = service => state => ({
       ...state,
-      ...success,
+      service,
+      loading: false,
+      error: false,
+    })
+
+    acc[errorKey] = error => state => ({
+      ...state,
+      error,
       loading: false,
     })
-    // @TODO(MANI): Remove if new code works
-    // accumulator[successKey] = epics[key].successUpdater;
 
-    // eslint-disable-next-line no-param-reassign
-    acc[errorKey] = errors => state => ({
-      ...state,
-      errors,
-      loading: false,
-    })
-    // @TODO(MANI): Remove if new code works
-    // accumulator[errorKey] = epics[key].errorUpdater;
-
-    // eslint-disable-next-line no-param-reassign
     acc[key] = event => state => {
       services[key](event).then(
         result =>
-          result.errors
-            ? actionsProxy.actions[errorKey](result.errors)
-            : actionsProxy.actions[successKey](result.data)
+          result.success
+            ? actionsProxy[successKey](result.body)
+            : actionsProxy[errorKey](result.body)
       )
-      // @TODO: Could this happen after the Promise resolves?
-      // Check that the loadingUpdater always happens first.
+
       return {
         ...state,
-        loading: true,
-        errors: null,
+        loading: event || true,
+        error: false,
       }
-      // @TODO(MANI): Remove if new code works
-      // return epics[key].loadingUpdater(event)(state);
     }
 
     return acc
@@ -59,7 +51,7 @@ export const servicesToUpdaters = (services, actionsProxy) =>
  * @param {Object} model has initialState, updaters, and epics.
  * @returns {Object} connectedModel gives an object with props, stateStream, actionStreams, and actions.
  */
-export const ConnectedModel = props => ({
+export const makeConnectedModel = props => ({
   initialState,
   updaters,
   services,
@@ -73,12 +65,10 @@ export const ConnectedModel = props => ({
   const actionsAndActionStreams = Object.keys(allUpdaters).reduce(
     (acc, key) => {
       const actionSubject = new Rx.Subject()
-      // eslint-disable-next-line no-param-reassign
       acc.actions[key] = data => {
         actionSubject.next(data)
       }
       // map Subject into an Observable with a => a
-      // eslint-disable-next-line no-param-reassign
       acc.actionStreams[key] = actionSubject.map(a => a)
       return acc
     },
@@ -87,7 +77,7 @@ export const ConnectedModel = props => ({
 
   const { actions, actionStreams } = actionsAndActionStreams
   // Actions are now created so service results can trigger them.
-  actionsProxy.actions = actions
+  Object.assign(actionsProxy, actions)
 
   // Transform object structure into an array.
   const updaterStreamsArray = Object.keys(actionStreams).map(key =>
@@ -100,7 +90,7 @@ export const ConnectedModel = props => ({
     // All updaterStreams are merged into one single stream.
     .merge(...updaterStreamsArray)
     // Before any updaterStream triggers, emit the initialState first.
-    .startWith({ ...initialState, loading: null, errors: null })
+    .startWith({ ...initialState, loading: null, error: null, service: null })
     // it's like reduce, but runs for each emitted item (reduce runs once on completion).
     // For each action: nextState = event + prevState. The updater adds the event data to the prevState.
     .scan((state, updater) => updater(state))
@@ -110,7 +100,7 @@ export const ConnectedModel = props => ({
   return { props, stateStream, actionStreams, actions }
 }
 
-export const ConnectedView = ({
+export const makeConnectedView = ({
   connectedModel,
   viewDataStream,
 }) => PureViewFactory => {
@@ -132,8 +122,9 @@ export const ConnectedView = ({
         },
         console.error, // eslint-disable-line no-console,
         () => {
-          console.log(
-            'Observable::completed called inside componentDidMount in the connectView function. This should not happen since the state cannot update anymore.'
+          console.error(
+            `Observable::completed called inside componentDidMount in the ConnectedView function.
+            This should not happen since the state cannot update anymore.`
           )
         }
       )
@@ -165,4 +156,6 @@ export const ConnectedView = ({
  * @returns {Object} a model and view connected together into a reactive planckStateComponent.
  */
 export const makeComponent = props => model => makeView =>
-  ConnectedView({ connectedModel: ConnectedModel(props)(model) })(makeView)
+  makeConnectedView({ connectedModel: makeConnectedModel(props)(model) })(
+    makeView
+  )
