@@ -1,13 +1,16 @@
-import Connected from "planck-state";
-import Model from "./model";
-import makeViewBasic from "./views/basic";
-import makeViewDebug from "./views/debug";
+import { makeComponent } from 'planck-state'
 
-const makeModel = ({ services }) => {
-  const { fetchService } = services;
-  const model = Model({ fetchService });
-  return Connected()(model);
-};
+import makeViewBasic from './views/basic'
+import makeViewDebug from './views/debug'
 
-export const BasicDataFetcher = context => makeModel(context)(makeViewBasic);
-export const DebugDataFetcher = context => makeModel(context)(makeViewDebug);
+const makeModel = context => {
+  const { services } = context
+  const model = {
+    initialState: { items: [] },
+    services,
+  }
+  return makeComponent()(model)
+}
+
+export const BasicDataFetcher = context => makeModel(context)(makeViewBasic)
+export const DebugDataFetcher = context => makeModel(context)(makeViewDebug)
