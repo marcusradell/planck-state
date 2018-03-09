@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 
-export const makeView = ({ props, actions, viewStateStream, makePureView }) => {
-  const PureView = makePureView({ props, actions })
-
+export const makeView = ({ viewStateStream, PureView }) => {
   class View extends Component {
     componentDidMount() {
       this.subscription = viewStateStream.subscribe(
