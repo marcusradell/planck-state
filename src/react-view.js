@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
 
-export const makeSubscriberView = ({
-  props,
-  actions,
-  viewStateStream,
-  makeView,
-}) => {
-  const PureView = makeView({ props, actions })
+export const makeView = ({ props, actions, viewStateStream, makePureView }) => {
+  const PureView = makePureView({ props, actions })
 
   class View extends Component {
     componentDidMount() {
