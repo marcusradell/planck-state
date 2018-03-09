@@ -1,46 +1,32 @@
 import Rx from 'rxjs'
 import { makeEpics } from './epics'
 
-test('makeEpics', () => {
+test('epicsStream', () => {
   const succeededActions = {
-    getDataSucceeded: () => null,
-  }
-
-  const failedActions = {
-    getDataFailed: () => null,
-  }
-
-  const epicActionStreams = {
-    getData: Rx.Observable.of({ value: 'test value' }),
-  }
-
-  const services = {
     getData: () => null,
   }
 
-  const epics = makeEpics(
+  const failedActions = {
+    getData: () => null,
+  }
+
+  const epicActionStreams = {
+    getData: Rx.Observable.of(null),
+  }
+
+  const services = {
+    getData: () =>
+      Rx.Observable.of({ succeeded: true, body: 'test value' }).take(1),
+  }
+
+  const epicsStream = makeEpics(
     succeededActions,
     failedActions,
     epicActionStreams,
     services
   )
 
-  expect(epics).toEqual(false)
+  return epicsStream.take(1).forEach(data => {
+    expect(data).toEqual({ succeeded: true, body: 'test value' })
+  })
 })
-
-// export const makeEpics = (
-//   succeededActions,
-//   failedActions,
-//   epicActionStreams,
-//   services
-// ) =>
-//   Object.entries(epicActionStreams).reduce(
-//     (acc, [key, epicActionStream]) =>
-//       epicActionStream.switchMap(data => services[key](data)).map(response => {
-//         const { success, body } = response
-//         const actions = success ? succeededActions : failedActions
-//         actions[key](body)
-//         return response
-//       }),
-//     {}
-//   )

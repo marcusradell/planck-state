@@ -1,6 +1,6 @@
 import { makeActionSubjects } from './action-subjects'
 
-test('makeActions', () => {
+test('makeActionSubjects', () => {
   const actionSubjectNames = ['setValue', 'resetValue']
   const { actions, actionStreams } = makeActionSubjects(actionSubjectNames)
 
