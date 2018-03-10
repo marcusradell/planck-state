@@ -1,6 +1,6 @@
 {
   "name": "planck-state",
-  "version": "5.1.0",
+  "version": "5.2.0",
   "main": "lib/index.js",
   "author": "Marcus Nielsen <marcus.nielsen82@gmail.com>",
   "description": "reactive state-management for composable state",
@@ -21,9 +21,6 @@
     }
   ],
   "homepage": "https://github.com/marcusnielsen/planck-state",
-  "engines": {
-    "node": ">=6 <=8"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/marcusnielsen/planck-state.git"
@@ -31,7 +28,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "build": "babel src -d lib",
+    "build": "./node_modules/.bin/babel src -d lib",
     "prepare": "npm run build"
   },
   "devDependencies": {
@@ -50,7 +47,7 @@
     "react-test-renderer": "^16.2.0"
   },
   "dependencies": {
-    "npm": "^5.7.1",
+    "npm": "^5.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "rxjs": "^5.5.6"
