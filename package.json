@@ -1,11 +1,17 @@
 {
   "name": "planck-state",
-  "version": "5.2.2",
+  "version": "5.2.3",
   "main": "lib/index.js",
-  "files": ["lib/"],
+  "files": [
+    "lib/"
+  ],
   "author": "Marcus Nielsen <marcus.nielsen82@gmail.com>",
   "description": "reactive state-management for composable state",
-  "keywords": ["reactjs", "rxjs", "state-management"],
+  "keywords": [
+    "reactjs",
+    "rxjs",
+    "state-management"
+  ],
   "bugs": {
     "url": "https://github.com/marcusnielsen/planck-state/issues",
     "email": "marcus.nielsen@linasmatkasse.se"
