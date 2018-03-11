@@ -22,7 +22,7 @@ export const makeView = ({ viewStateStream, PureView }) => {
     }
 
     render() {
-      return this.state && React.createElement(PureView, this.state)
+      return this.state && React.createElement(PureView, this.state, this.props.children)
     }
   }
 
