@@ -1,11 +1,11 @@
 import Rx from 'rxjs'
 
-export const makeEpics = (
+export const makeEpics = ({
   succeededActions,
   failedActions,
   epicActionStreams,
-  services
-) =>
+  services,
+}) =>
   Rx.Observable.merge(
     ...Object.entries(epicActionStreams).reduce(
       (acc, [key, epicActionStream]) => {

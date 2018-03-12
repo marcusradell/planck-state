@@ -25,7 +25,7 @@ test('makeStateStream', () => {
       expect(state).toEqual({ value: 'bar' })
     })
 
-  actionSubject.next({ value: 'bar' })
+  actionSubject.next('bar')
 
   return resultP
 })

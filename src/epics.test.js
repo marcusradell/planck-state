@@ -19,12 +19,12 @@ test('epicsStream', () => {
       Rx.Observable.of({ succeeded: true, body: 'test value' }).take(1),
   }
 
-  const epicsStream = makeEpics(
+  const epicsStream = makeEpics({
     succeededActions,
     failedActions,
     epicActionStreams,
-    services
-  )
+    services,
+  })
 
   return epicsStream.take(1).forEach(data => {
     expect(data).toEqual({ succeeded: true, body: 'test value' })
