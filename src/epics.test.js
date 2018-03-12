@@ -2,27 +2,23 @@ import Rx from 'rxjs'
 import { makeEpics } from './epics'
 
 test('epicsStream', () => {
-  const succeededActions = {
-    getData: () => null,
+  const actions = {
+    getDataAsyncSucceeded: () => null,
+    getDataAsyncFailed: () => null,
   }
 
-  const failedActions = {
-    getData: () => null,
-  }
-
-  const epicActionStreams = {
-    getData: Rx.Observable.of(null),
+  const actionStreams = {
+    getDataAsync: Rx.Observable.of(null),
   }
 
   const services = {
-    getData: () =>
+    getDataAsync: () =>
       Rx.Observable.of({ succeeded: true, body: 'test value' }).take(1),
   }
 
   const epicsStream = makeEpics({
-    succeededActions,
-    failedActions,
-    epicActionStreams,
+    actions,
+    actionStreams,
     services,
   })
 
