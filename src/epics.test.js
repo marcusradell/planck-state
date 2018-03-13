@@ -2,13 +2,18 @@ import Rx from 'rxjs'
 import { makeEpics } from './epics'
 
 test('epicsStream', () => {
+  expect.assertions(2)
+
   const actions = {
-    getDataAsyncSucceeded: () => null,
+    anotherAction: () => null,
+    getDataAsyncSucceeded: jest.fn,
     getDataAsyncFailed: () => null,
   }
 
+  const getDataAsyncSubject = new Rx.Subject()
+
   const actionStreams = {
-    getDataAsync: Rx.Observable.of(null),
+    getDataAsync: getDataAsyncSubject,
   }
 
   const services = {
@@ -22,7 +27,12 @@ test('epicsStream', () => {
     services,
   })
 
-  return epicsStream.take(1).forEach(data => {
+  const resultP = epicsStream.take(1).forEach(data => {
+    expect(actions.getDataAsyncSucceeded.length).toEqual(1)
     expect(data).toEqual({ succeeded: true, body: 'test value' })
   })
+
+  getDataAsyncSubject.next()
+
+  return resultP
 })
