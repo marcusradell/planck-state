@@ -9,6 +9,7 @@ export const makeView = ({ viewStateStream, PureView }) => {
         },
         console.error, // eslint-disable-line no-console,
         () => {
+          // eslint-disable-next-line no-console,
           console.error(
             `Observable::completed called inside componentDidMount in the ConnectedView function.
               This should not happen, and the state will not update anymore.`
@@ -22,7 +23,10 @@ export const makeView = ({ viewStateStream, PureView }) => {
     }
 
     render() {
-      return this.state && React.createElement(PureView, this.state, this.props.children)
+      return (
+        this.state &&
+        React.createElement(PureView, this.state, this.props.children)
+      )
     }
   }
 
