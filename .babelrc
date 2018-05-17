@@ -1,5 +1,5 @@
 {
   "presets": ["env", "react"],
-
-  "plugins": ["transform-object-rest-spread"]
+  "plugins": ["transform-object-rest-spread"],
+  "ignore": ["lib/**/*.test.js"]
 }

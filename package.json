@@ -1,10 +1,17 @@
 {
   "name": "planck-state",
-  "version": "4.0.4",
+  "version": "5.6.0",
   "main": "lib/index.js",
+  "files": [
+    "lib/"
+  ],
   "author": "Marcus Nielsen <marcus.nielsen82@gmail.com>",
   "description": "reactive state-management for composable state",
-  "keywords": ["reactjs", "rxjs", "state-management"],
+  "keywords": [
+    "reactjs",
+    "rxjs",
+    "state-management"
+  ],
   "bugs": {
     "url": "https://github.com/marcusnielsen/planck-state/issues",
     "email": "marcus.nielsen@linasmatkasse.se"
@@ -17,9 +24,6 @@
     }
   ],
   "homepage": "https://github.com/marcusnielsen/planck-state",
-  "engines": {
-    "node": ">=6 <=8"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/marcusnielsen/planck-state.git"
@@ -27,7 +31,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "build": "babel src -d lib",
+    "build": "./node_modules/.bin/babel src -d lib",
     "prepare": "npm run build"
   },
   "devDependencies": {
@@ -42,8 +46,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "jest": "^22.4.2",
-    "prettier": "^1.10.2",
-    "react-test-renderer": "^16.2.0"
+    "prettier": "^1.10.2"
   },
   "dependencies": {
     "react": "^16.2.0",
