@@ -1,4 +1,5 @@
-import Rx from 'rxjs'
+import { Subject } from 'rxjs'
+import { skip, take } from 'rxjs/operators'
 import { makeStateStream } from './state'
 
 test('makeStateStream', () => {
@@ -6,7 +7,7 @@ test('makeStateStream', () => {
     value: 'foo',
   }
 
-  const actionSubject = new Rx.Subject()
+  const actionSubject = new Subject()
 
   const actionStreams = {
     setValue: actionSubject,
@@ -19,8 +20,10 @@ test('makeStateStream', () => {
   const stateStream = makeStateStream({ initialState, actionStreams, updaters })
 
   const resultP = stateStream
-    .skip(1)
-    .take(1)
+    .pipe(
+      skip(1),
+      take(1)
+    )
     .forEach(state => {
       expect(state).toEqual({ value: 'bar' })
     })
