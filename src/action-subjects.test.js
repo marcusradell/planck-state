@@ -1,6 +1,7 @@
+import { take } from 'rxjs/operators'
 import { makeActionSubjects } from './action-subjects'
 
-test('makeActionSubjects', () => {
+test.only('makeActionSubjects', () => {
   const actionSubjectNames = ['setValue', 'resetValue']
   const { actions, actionStreams } = makeActionSubjects(actionSubjectNames)
 
@@ -13,7 +14,7 @@ test('action triggers actionStream', () => {
   const { actions, actionStreams } = makeActionSubjects(actionSubjectNames)
 
   const resultP = actionStreams.setValue
-    .take(1)
+    .pipe(take(1))
     .forEach(val => expect(val).toEqual('test value'))
 
   actions.setValue('test value')

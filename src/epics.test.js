@@ -1,4 +1,5 @@
-import Rx from 'rxjs'
+import { Subject, of } from 'rxjs'
+import { take } from 'rxjs/operators'
 import { makeEpics } from './epics'
 
 test('epicsStream', () => {
@@ -10,7 +11,7 @@ test('epicsStream', () => {
     getDataAsyncFailed: () => null,
   }
 
-  const getDataAsyncSubject = new Rx.Subject()
+  const getDataAsyncSubject = new Subject()
 
   const actionStreams = {
     getDataAsync: getDataAsyncSubject,
@@ -18,7 +19,7 @@ test('epicsStream', () => {
 
   const services = {
     getDataAsync: () =>
-      Rx.Observable.of({ succeeded: true, body: 'test value' }).take(1),
+      of({ succeeded: true, body: 'test value' }).pipe(take(1)),
   }
 
   const epicsStream = makeEpics({
@@ -27,7 +28,7 @@ test('epicsStream', () => {
     services,
   })
 
-  const resultP = epicsStream.take(1).forEach(data => {
+  const resultP = epicsStream.pipe(take(1)).forEach(data => {
     expect(actions.getDataAsyncSucceeded.length).toEqual(1)
     expect(data).toEqual({ succeeded: true, body: 'test value' })
   })
